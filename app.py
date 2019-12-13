@@ -80,17 +80,6 @@ def images():
     cursor.close()
     return render_template('images.html', posts=data)
 
-@app.route("/likeImage", methods=["POST"])
-@login_required
-def like_image():
-    username = session["username"]
-    query = "INSERT IGNORE INTO Likes (username, photoID, liketime) values (%s, %s, %s)"
-    pID = request.form["photoID"]
-    # print(pID) -- making sure jquery is sending correct value
-    with connection.cursor() as cursor:
-        cursor.execute(query,(username, pID, time.strftime('%Y-%m-%d %H:%M:%S')))
-    return render_template("images.html")
-
 
 @app.route("/searchPoster", methods=["GET"])
 def searchPoster():
