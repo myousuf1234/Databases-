@@ -1,0 +1,2 @@
+SELECT photoID FROM Photo WHERE allFollowers IS TRUE AND (photoPoster IN (SELECT username_followed FROM Follow WHERE username_follower = "TestUser"  AND followstatus IS TRUE)) OR (photoID IN (SELECT photoID FROM SharedWith WHERE groupName IN (SELECT groupName FROM BelongTo WHERE member_username = "TestUser")))
+
