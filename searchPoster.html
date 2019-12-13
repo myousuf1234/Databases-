@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Search</title>
+    </head>
+    <body style="background-color: azure; text-align: center">
+        <h1 style="background-color: cadetblue; font-family: fantasy">FINSTAGRAM</h1>
+        <h1>Search for Posts</h1>
+        <h2 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Looking for somebody you know?</h2>
+        <div>
+            <form action="/searchAuth" method="post">
+                <input type="text" name="username" placeholder="Username" required/>
+                <br/>
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        {% if error %}
+            {{ error }}
+        {% endif %}
+    </body>
+</html>

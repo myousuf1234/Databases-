@@ -1,0 +1,171 @@
+<!--<html>-->
+    <!--<head>-->
+        <!--<title>Finstagram</title>-->
+    <!--</head>-->
+    <!--<body>-->
+        <!--<h1>Image Gallery</h1>-->
+        <!--<div>-->
+        <!--</div>-->
+        <!--{% if posts %}-->
+         <!--{% for post in posts %}-->
+         <!--<div>-->
+            <!--<p>Posted By <b>{{post.firstName}} {{post.lastName}} - {{post.photoPoster}}</b></p>-->
+            <!--<small class=text-muted> Photo ID: {{post.photoID}}</small> <br>-->
+            <!--<small class=text-muted> Posted On {{post.postingdate}}</small> <br>-->
+            <!--<img src="static/images/{{post.filepath}}"> <br>-->
+            <!--<p> {{post.caption}} </p>-->
+            <!--<button onclick="location.href='{{ url_for('tag', id=post.photoID)}}'" type="button">Tag User</button>-->
+            <!--<br>-->
+            <!--<p>Tagged Users:-->
+            <!--{% if post.tagees %}-->
+              <!--{% for tagged in post.tagees %}-->
+                <!--{% if loop.last %}-->
+                <!--<p>{{tagged.firstName}} {{tagged.lastName}} - {{tagged.username}}</p>-->
+                <!--{% else %}-->
+                <!--<p>{{tagged.firstName}} {{tagged.lastName}} - {{tagged.username}},</p>-->
+                <!--{% endif %}-->
+              <!--{% endfor %}-->
+            <!--{% else %}-->
+             <!--<p> None</p>-->
+            <!--{% endif %}-->
+            <!--</p>-->
+        <!--</div>-->
+        <!--{% endfor %}-->
+        <!--{% else %}-->
+            <!--<p>No photos to display</p>-->
+        <!--{% endif %}-->
+        <!--<p>_______________________________________________________</p>-->
+
+        <!--<a href="/">Go back</a>-->
+    <!--</body>-->
+<!--</html>-->
+
+
+<html>
+    <head>
+        <title>Finstagram</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <style>
+            .imageContainer {
+                display: inline-block;
+            }
+            .imageContainer .likeImage {
+                position: absolute;
+                margin-left: -80px;
+                margin-top: 270px;
+                opacity: 0.2;
+            }
+            .imageContainer .likeImage:hover {
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body style="background-color: azure; text-align: center">
+        <h1 style="background-color: cadetblue; font-family: fantasy">FINSTAGRAM</h1>
+        <h1>Image Gallery</h1>
+        <h2 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">This gallery can never be too big!</h2>
+        <div>
+        </div>
+        {% if posts %}
+         {% for post in posts %}
+         <div>
+            <p>Posted By <b>{{post.firstName}} {{post.lastName}} - {{post.photoPoster}}</b></p>
+             <button type="button" class="likeImage" onClick="sendImageData(this); return false;" value="{{ post.photoID }}" name="notLiked">Like</button>
+            <small class=text-muted> Photo ID: {{post.photoID}}</small> <br>
+            <small class=text-muted> Posted On {{post.postingdate}}</small> <br>
+            <img src="static/images/{{post.filepath}}"> <br>
+            <p> {{post.caption}} </p>
+            <button onclick="location.href='{{ url_for('tag', id=post.photoID)}}'" type="button">Tag User</button>
+            <br>
+            <p>Tagged Users:
+            {% if post.tagees %}
+              {% for tagged in post.tagees %}
+                {% if loop.last %}
+                <p>{{tagged.firstName}} {{tagged.lastName}} - {{tagged.username}}</p>
+                {% else %}
+                <p>{{tagged.firstName}} {{tagged.lastName}} - {{tagged.username}},</p>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+             <p> None</p>
+            {% endif %}
+             <p>Liked By:
+            {% if post.likers %}
+                {% for liker in post.likers %}
+                    {% if loop.last %}
+                    {{liker.username}} rating: {{liker.rating}}
+                    {% else %}
+                    {{liker.username}} rating: {{liker.rating}},
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+            None
+            {% endif %}
+            </p>
+            </p>
+             <p>_______________________________________________________</p>
+        </div>
+        {% endfor %}
+        {% else %}
+            <p>No photos to display</p>
+        {% endif %}
+
+
+        <a href="/">Go back</a>
+    </body>
+<script>
+    function sendImageData(element) {
+        if (element.name == "notLiked"){
+            $.post( "/likeImage", {
+            photoID: element.value
+            });
+            element.setAttribute("name", "Liked")
+        }
+    }
+</script>
+</html>
+
+
+<!--<html>-->
+    <!--<head>-->
+        <!--<title>Finstagram</title>-->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+        <!--<style>-->
+            <!--.imageContainer {-->
+                <!--display: inline-block;-->
+            <!--}-->
+            <!--.imageContainer .likeImage {-->
+                <!--position: absolute;-->
+                <!--margin-left: -80px;-->
+                <!--margin-top: 270px;-->
+                <!--opacity: 0.2;-->
+            <!--}-->
+            <!--.imageContainer .likeImage:hover {-->
+                <!--opacity: 0.9;-->
+            <!--}-->
+        <!--</style>-->
+    <!--</head>-->
+    <!--<body>-->
+        <!--<h1>Image Gallary</h1>-->
+        <!--<div>-->
+            <!--{% for image in posts %}-->
+            <!--<div class="imageContainer">-->
+                <!--<img src="static/images/{{image.filepath}}">-->
+                <!--<p>Posted by: {{image.firstName}} {{ image.lastName }} on {{image.postingdate}}</p>-->
+                <!--<button type="button" class="likeImage" onClick="sendImageData(this); return false;" value="{{ image.photoID }}" name="notLiked">Like</button>-->
+            <!--</div>-->
+            <!--{% endfor %}-->
+        <!--</div>-->
+        <!--<a href="/">Go back</a>-->
+    <!--</body>-->
+<!--<script>-->
+    <!--function sendImageData(element) {-->
+        <!--if (element.name == "notLiked"){-->
+            <!--$.post( "/likeImage", {-->
+            <!--photoID: element.value-->
+            <!--});-->
+            <!--element.setAttribute("name", "Liked")-->
+        <!--}-->
+    <!--}-->
+<!--</script>-->
+<!--</html>-->

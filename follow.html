@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Send Follow Request</title>
+    </head>
+    <body style="background-color: azure; text-align: center">
+        <h1 style="background-color: cadetblue; font-family: fantasy">FINSTAGRAM</h1>
+        <h1>Follow</h1>
+        <div>
+            <form action="/follow" method="post">
+                <input type="text" name="username" placeholder="Username" required/>
+                <br/>
+                <input type="submit" value="send request">
+            </form>
+        </div>
+        {% if message %}
+            {{ message }}
+        {% endif %}<br>
+    <a href="/">Go back</a>
+    </body>
+</html>
