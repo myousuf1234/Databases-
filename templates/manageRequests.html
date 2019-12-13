@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Manage Follow Requests</title>
+</head>
+<body style="background-color: azure; text-align: center">
+    <h1 style="background-color: cadetblue; font-family: fantasy">FINSTAGRAM</h1>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	    {% for message in messages %}
+	      <b>{{ message }}</b>
+	    {% endfor %}
+	  {% endif %}
+	{% endwith %}
+	{% if followers %}
+	<form action="/manageRequests" method="post" enctype="multipart/form-data">
+		<select name="chooseUsers" multiple>
+            {% for request in followers %}
+            <option value="{{request.username_follower}}">{{request.username_follower}}</option>
+            {% endfor %}
+	        </select>
+	        <br>
+	        <input type="submit" name="action" value="Accept">
+	        <input type="submit" name="action" value="Decline">
+	</form>
+	{% else %}
+	<p style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">You do not currently have any follow requests.</p>
+	{% endif %}
+	<a href="/">Go back</a>
+</body>
+</html>

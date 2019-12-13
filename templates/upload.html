@@ -1,0 +1,27 @@
+  
+<html>
+    <head>
+        <title>Image Upload</title>
+    </head>
+    <body style="background-color: azure; text-align: center">
+        <h1 style="background-color: cadetblue; font-family: fantasy">FINSTAGRAM</h1>
+        <h1 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Upload an image!</h1>
+        <h2 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Need ideas? Whats going on in your life right now?</h2>
+        <div>
+            <form action="/uploadImage" method="post" enctype="multipart/form-data">
+                <input type="file" name="imageToUpload" accept="image/*">
+                <br/>
+                 <input type="text" name="caption" placeholder="Enter your caption here:"/>
+                <br>
+                <input type="checkbox" value="True" name="allFollowers"> Click here to make photo visible to all followers
+                <br/>
+                <input type="submit" value="Upload">
+            </form>
+        </div>
+        {% if message %}
+            {{ message }}
+        {% endif %}
+        <br/>
+        <a href="/">Go back</a>
+    </body>
+</html>
